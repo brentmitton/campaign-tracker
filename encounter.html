@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org./1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<title>Pathfinder Campaign Manager</title>
+	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8” />
+	<link type="text/css" href="/stylesheets/ncp.css" rel="stylesheet" />
+	<script type="text/javascript" src="/stylesheets/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/stylesheets/jquery.tablesorter.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() { 
+				<!-- Sort tables -->
+				$("#aliveList").tablesorter({ sortList: [[0,1]] }); 				
+				$("#deadList").tablesorter({ sortList: [[0,1]] });
+				
+				<!-- Determine which list players appear in -->
+				{% for player in players %}
+					if ( {{ player.hp }} > 0){
+						playerkey="#{{player.key}}_dead";
+						jQuery(playerkey).hide();
+					}
+					else{
+						playerkey="#{{player.key}}_alive";
+						jQuery(playerkey).hide();
+					}
+				{% endfor %}
+				
+				{% for enemy in enemies %}
+					if ( {{enemy.hp}} > 0){
+						enemykey="#{{enemy.key}}_dead";
+						jQuery(enemykey).hide();
+					}
+					else{
+						enemykey="#{{enemy.key}}_alive";
+						jQuery(enemykey).hide();
+					}
+				{% endfor %}
+			} 
+		); 	
+	</script>
+</head>
+<body>
+<div id="header">
+	<img src="/images/pathfinderlogo.bmp" alt="Pathfinder Role Playing Game" width="600" /><br />
+	<div class="roundborder"><a href="{{url}}">{{url_linktext}}</a> || <a href="/encounterSetup">Encounter Setup<a>
+</div>
+<div id="content">
+	<div><h3>The Live List</h3></div>
+	<table class="fhw tablesorter" id="aliveList">
+	<thead>
+		<tr class="tablehead">
+			<th class="headerSortDown">Initiative</th>
+			<th>Name</th>
+			<th>HP</th>
+			<th></th>
+			<th></th>
+			<th style="display: none" ></th>
+			<th style="display: none"></th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for enemy in enemies %}
+		<tr id="{{enemy.key}}_alive">
+		<form method="post" name="changeHpLive" action="/changeHp">
+			<td>{{ enemy.initiative }}</td>
+			<td>{{ enemy.name }}</td>
+			<td>{{ enemy.hp }}</td>
+			<td><input type="text" name="change"  value="0" size="3" /></td>
+			<td><input type="submit" value="Change HP" /></td>
+			<td style="display: none"><input type="text" value="{{enemy.key}}" 
+					name="key" size="3" /></td>
+			<td style="display: none"><input type="text" name="campaign_name" 
+					value="{{campaign_name}}" /></td>
+			<td style="display: none"><input type="text" name="PoE" 
+					value="enemy" /></td>
+		</form>
+		</tr>
+	{% endfor %}
+	{% for player in players %}
+		<tr id="{{player.key}}_alive">
+		<form method="post" name="changeHpLive" action="/changeHp">
+			<td >{{ player.initiative }}</td>	
+			<td>{{ player.name }}</td>
+			<td>{{ player.hp }}</td>
+			<td><input type="text" name="change"  value="0" size="3" /></td>
+			<td><input type="submit" value="Change HP" /></td>
+			<td style="display: none"><input type="text" value="{{player.key}}"
+					name="key" size="3" /></td>
+			<td style="display: none"><input type="text" name="campaign_name" 
+					value="{{ campaign_name }}" /></td>
+			<td style="display: none"><input type="text" name="PoE" 
+					value="player" /></td>
+		</form>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	
+<!---------Dead List------------------------------------------>
+	<div><h3>The Dead List</h3></div>
+	<table class="fhw tablesorter" id="deadList">
+	<thead>
+		<tr class="tablehead">
+			<th class="headerSortDown">Initiative</th>
+			<th>Name</th>
+			<th>HP</th>
+			<th></th>
+			<th></th>
+			<th style="display: none" ></th>
+			<th style="display: none"></th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for enemy in enemies %}
+		<tr id="{{enemy.key}}_dead">
+		<form method="post" name="changeHpDead" action="/changeHp">
+			<td>{{ enemy.initiative }}</td>
+			<td>{{ enemy.name }}</td>
+			<td>{{ enemy.hp}}</td>
+			<td><input type="text" name="change"  value="0" size="3" /></td>
+			<td><input type="submit" value="Change HP" /></td>
+			<td style="display: none"><input type="text" value="{{enemy.key}}" 
+					name="key" size="3" /></td>
+			<td style="display: none"><input type="text" name="campaign_name" 
+					value="{{campaign_name}}" /></td>
+			<td style="display: none"><input type="text" name="PoE" 
+					value="enemy" /></td>		
+		</form>
+		</tr>
+	{% endfor %}
+	{% for player in players %}
+		<tr id="{{player.key}}_dead">
+		<form method="post" name="changeHpDead" action="/changeHp">
+			<td >{{ player.initiative }}</td>	
+			<td>{{ player.name }}</td>
+			<td>{{ player.hp }}</td>
+			<td><input type="text" name="change"  value="0" size="3" /></td>
+			<td><input type="submit" value="Change HP" /></td>
+			<td style="display: none"><input type="text" value="{{player.key}}"  
+					name="key" size="3" /></td>
+			<td style="display: none"><input type="text" name="campaign_name" 
+					value="{{ campaign_name }}" /></td>
+			<td style="display: none"><input type="text" name="PoE" 
+					value="player" /></td>		
+		</form>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	
+<!------------------------------------------------------------>
+
+<form class="center fhw" method="post" name="selectCampaign" action="/endEncounter">
+	<input type="submit" value="End encounter" />
+	<input type="text" name="campaign_name" value="{{ campaign_name }}" style="visibility: hidden" />
+</form>
+</div>
+
+</body>
+</html>

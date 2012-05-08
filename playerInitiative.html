@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org./1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<title>NCPhelps</title>
+	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8” />
+	<link type="text/css" href="/stylesheets/ncp.css" rel="stylesheet" />
+	<script type="text/javascript" src="/stylesheets/jquery-1.7.2.min.js"></script>
+	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> -->
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+			jQuery(".hidden").hide();
+			//toggle the componenet with class msg_body
+			jQuery(".exp").click(function() {
+				jQuery(this).next(".hidden").slideToggle(500);
+			});
+		});
+		
+		function validatePlayerForm() {
+			
+		
+			var name = document.forms["addPlayer"]["name"].value;
+			var xp = document.forms["addPlayer"]["xp"].value;
+			var initiative = document.forms["addPlayer"]["initiative"].value;
+			var hp = document.forms["addPlayer"]["hp"].value;
+			
+			var message="";
+			var complete= true;
+			
+			if (name == null || name == "") {
+				message += "Player name\n";
+				complete = false;
+				}
+			if (xp == null || xp == "") {
+				message += "Starting XP\n";
+				complete = false;
+				}
+			if (initiative == null || initiative == "") {
+				message += "Initiative\n";
+				complete = false;
+				}
+			if (hp == null || hp == "") {
+				message += "HP\n";
+				complete = false;
+				}
+			
+			//If any variable is empty, or invalid. Produce notice.
+			if ( complete === false )	{	
+				message = "Please fill out the following fields: \n" + message;
+				alert(message);
+				return false;
+			}
+		}
+		
+		function validateEnemyForm() {
+			
+			var name = document.forms["addEnemy"]["name"].value;
+			var cr = document.forms["addEnemy"]["cr"].value;
+			var num = document.forms["addEnemy"]["iterations"].value;
+			var numHD = document.forms["addEnemy"]["numHD"].value;
+			var mod = document.forms["addEnemy"]["mod"].value;
+			var initiativemod = document.forms["addEnemy"]["initiativemod"].value;
+			
+			var message="";
+			var complete= true;
+			
+			//Check to see if variables are empty.
+			if (name == null || name == "") {
+				message += "Enemy name\n";
+				complete = false;
+				}
+			if (num == null || num == "") {
+				message += "Number of this kind.\n";
+				complete = false;
+				}
+			if (numHD == null || numHD == "") {
+				message += "Num HD\n";
+				complete = false;
+				}
+
+			if (mod == null || mod == "") {
+				message += "HP Mod\n";
+				complete = false;
+				}
+			if (initiativemod == null || initiativemod == "") {
+				message += "Initiative Mod\n";
+				complete = false;
+				}
+			
+			//If any variable is empty, or invalid. Produce notice.
+			if ( complete === false )	{	
+				message = "Please fill out the following fields: \n" + message;
+				alert(message);
+				return false;
+			}
+		}
+		
+		function validateEncounter() {
+			numPlayers = {{ numPlayers }} ; 
+			numEnemies = {{ numEnemies }} ;
+		
+			message = "";
+			startEncounter = true;
+			
+			if (numPlayers < 1 ) {
+				message += "There are no players.\n";
+				startEncounter = false;
+			}
+			if (numEnemies < 1) {
+				message += "There are no enemies.";
+				startEncounter = false;
+			}
+			
+			if (startEncounter == false) {
+				alert(message);
+				return startEncounter;
+			} else {
+					$('#initiative').animate({
+						top : 50
+					})
+			}
+			
+		}
+	
+	</script>
+</head>
+<body>
+	<div id="header">
+		<img src="/images/pathfinderlogo.bmp" alt="Pathfinder Role Playing Game" width="500" /> 
+	</div>
+	<div id="content">
+		<form method="post" name="initiative" action="/initiative">
+			<table class="fhw">
+				<tr class="tablehead">
+					<td>Name</td>
+					<td>Initiative</td>
+				</tr>
+				{% for player in players %}
+					<tr>
+					<td>{{ player.name }}</td>
+					<td><input type="text" name="{{player.name}}-{{player.xp}}" /></td>
+					</tr>
+				{% endfor %}
+			</table>
+			<input type="submit" value="Set Initiative" />
+			<input type="text" name="campaign_name" value="{{ campaign_name }}" style="display: none" />
+		</form>
+</div>
+</body>
+</html>

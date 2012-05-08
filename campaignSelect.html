@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org./1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<title>Campaign Tracker</title>
+	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8” />
+	<link type="text/css" href="/stylesheets/ncp.css" rel="stylesheet" />
+	<script type="text/javascript" 
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript"></script>
+</head>
+<body>
+	<div id="header">
+		<img src="/images/pathfinderlogo.bmp" alt="Pathfinder Role Playing Game" width="600" /><br />
+		<div class="roundborder"><a href="{{url}}">{{url_linktext}}</a> || <a href="/encounterSetup">Encounter Setup<a>
+	</div>
+	<div id="content">
+
+<!-----------------------------------------------------------------------
+	I need to add in a header for the website with a brief description 
+	of what it actually is and how to use it.
+------------------------------------------------------------------------>
+
+	<form method="get" name="selectCampaign" action="/encounterSetup">
+		<b>Campaign name: </b><input type="text" name="campaign_name" />
+		<br /><br />
+		<input type = "submit" value = "Select Campaign" />
+	</form>
+</div>
+</body>
+</html>

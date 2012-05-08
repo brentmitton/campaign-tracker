@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org./1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<title>Campaign Tracker</title>
+	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8” />
+	<link type="text/css" href="/stylesheets/ncp.css" rel="stylesheet" />
+	<script type="text/javascript" src="/stylesheets/jquery-1.7.2.min.js"></script>
+	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> -->
+	</head>
+<body>
+<div id="header">
+	<img src="/images/pathfinderlogo.bmp" alt="Pathfinder Role Playing Game" width="600" /><br />
+	<div class="roundborder"><a href="{{url}}">{{url_linktext}}</a> || <a href="/encounterSetup">Encounter Setup<a>
+	</div>
+</div>
+<div id="content">
+	<h2>Welcome {{username}}</h2>
+	<p>
+		The <em>Pathfinder Campaign Tracker</em>, is a web application created with the purpose of 
+		automating tedious tasks in mind. These are the tasks that are necessary for Game Masters 
+		but slow the game down (sometimes to a stop) and take away from the role playing experience. 
+	</p>
+	<p>
+		As it stands, there are three main parts to this app:
+		<ul>
+			<li>Player management</li>
+			<li>Enemy management</li>
+			<li>Encounter management</li>
+		</ul>
+	</p>
+	<p>
+		<b>Player management</b> means that GMs no longer need to track the level and experience 
+		of his players.
+	</p>
+	<p>
+		<b>Enemy management</b> allows GMs to create enemies of a certain type instantly 
+		by selecting the number of that type as well as their CR, Hit Die, and Initiative 
+		mod. The program then randomly generates each creature's stats so the GM doesn't have to. 
+	</p>
+	<p>
+		<b>Encounter management</b> takes all of the Players and Enemies created, and displays them by
+		order of initiative. Beside each character is a text box allowing the GM to add or remove hit
+		points. Once a characters HP drops below zero, the character is removed from the list and displayed
+		in the <em>"Unconsciouss List"</em>, from where their HP may also be changed. Once the encounter is 
+		over, the software tallys up the XP gained from each Enemy whose HP was below 0 and then divides it 
+		amongst the players. 
+	</p>
+	<hr />
+	<h3>Future Updates:</h3>
+	<p>
+		<h4>Multiple Campaigns</h4>
+		At the moment, only one campaign per GM is available; however, changing this is high on our 
+		priority list. Eventualy, each GM should be able to create and manage multiple campaigns.
+		<h4>Players in Encounter</h4>
+		Every player does not always take part in an encounter. Because of this, GMs will be able to 
+		select which Players will actually be participating in an encounter before starting it.
+	</p>
+<!-- Footer -->
+	<div id="footer" class="fhw">
+		<h6>Javascript must be enabled</h6>
+	</div>
+</div>
+</body>
+</html>
